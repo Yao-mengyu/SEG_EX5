@@ -31,8 +31,8 @@ public:
     QAction *action_Ctrl_Q;
     QWidget *centralwidget;
     QTextBrowser *textBrowser;
-    QTableView *tableView;
     QPushButton *pushButton;
+    QTableView *tableView;
     QMenuBar *menubar;
     QMenu *menu;
     QStatusBar *statusbar;
@@ -51,12 +51,12 @@ public:
         textBrowser = new QTextBrowser(centralwidget);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
         textBrowser->setGeometry(QRect(0, 0, 841, 41));
-        tableView = new QTableView(centralwidget);
-        tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setGeometry(QRect(0, 40, 841, 511));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(730, 560, 89, 25));
+        pushButton->setGeometry(QRect(730, 540, 89, 25));
+        tableView = new QTableView(centralwidget);
+        tableView->setObjectName(QString::fromUtf8("tableView"));
+        tableView->setGeometry(QRect(0, 40, 841, 491));
         result->setCentralWidget(centralwidget);
         menubar = new QMenuBar(result);
         menubar->setObjectName(QString::fromUtf8("menubar"));

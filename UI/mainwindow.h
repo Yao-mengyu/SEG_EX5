@@ -3,9 +3,12 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QFile>
+#include <QTextStream>
 #include <iostream>
 #include "policy.h"
 #include "result.h"
+//#include "dmp_diff.h"
 using namespace std;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,7 +19,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr, string eq_file = "");
+    MainWindow(QWidget *parent = nullptr, string eq_file = "", string dir = "");
     ~MainWindow();
     bool show_it;
 
@@ -34,7 +37,7 @@ private:
     string eq_file;
     Policy p;
     void update_judge_state();
-    
     result rw;
+    string input_dir;
 };
 #endif // MAINWINDOW_H

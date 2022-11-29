@@ -11,12 +11,10 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
@@ -26,14 +24,14 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QTextBrowser *textBrowser;
-    QTableView *tableView;
-    QTableView *tableView_2;
-    QTableView *tableView_3;
-    QTableView *tableView_4;
+    QTextBrowser *tips;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
+    QTextBrowser *file1_name;
+    QTextBrowser *file2_name;
+    QTextBrowser *file1_text;
+    QTextBrowser *file2_text;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -44,21 +42,9 @@ public:
         MainWindow->resize(1221, 665);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        textBrowser = new QTextBrowser(centralwidget);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(0, 0, 1221, 41));
-        tableView = new QTableView(centralwidget);
-        tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setGeometry(QRect(0, 40, 611, 41));
-        tableView_2 = new QTableView(centralwidget);
-        tableView_2->setObjectName(QString::fromUtf8("tableView_2"));
-        tableView_2->setGeometry(QRect(610, 40, 611, 41));
-        tableView_3 = new QTableView(centralwidget);
-        tableView_3->setObjectName(QString::fromUtf8("tableView_3"));
-        tableView_3->setGeometry(QRect(0, 80, 611, 491));
-        tableView_4 = new QTableView(centralwidget);
-        tableView_4->setObjectName(QString::fromUtf8("tableView_4"));
-        tableView_4->setGeometry(QRect(610, 80, 611, 491));
+        tips = new QTextBrowser(centralwidget);
+        tips->setObjectName(QString::fromUtf8("tips"));
+        tips->setGeometry(QRect(0, 0, 1221, 41));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(370, 590, 89, 25));
@@ -68,6 +54,18 @@ public:
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
         pushButton_3->setGeometry(QRect(770, 590, 191, 25));
+        file1_name = new QTextBrowser(centralwidget);
+        file1_name->setObjectName(QString::fromUtf8("file1_name"));
+        file1_name->setGeometry(QRect(0, 40, 611, 41));
+        file2_name = new QTextBrowser(centralwidget);
+        file2_name->setObjectName(QString::fromUtf8("file2_name"));
+        file2_name->setGeometry(QRect(610, 40, 611, 41));
+        file1_text = new QTextBrowser(centralwidget);
+        file1_text->setObjectName(QString::fromUtf8("file1_text"));
+        file1_text->setGeometry(QRect(0, 80, 611, 491));
+        file2_text = new QTextBrowser(centralwidget);
+        file2_text->setObjectName(QString::fromUtf8("file2_text"));
+        file2_text->setGeometry(QRect(610, 80, 611, 491));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -85,7 +83,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        textBrowser->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        tips->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"

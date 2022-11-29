@@ -81,7 +81,7 @@ bool Policy::judge_in_neq(my_file* file1, my_file* file2){
 
 void Policy::update_result(string file1_name, string file2_name, bool manual_judge){
     assert(!file1_name.empty()&&!file2_name.empty());
-     cout<<this->file_map.size()<<endl;
+    // cout<<this->file_map.size()<<endl;
     my_file* file1 = file_map[file1_name];
     my_file* file2 = file_map[file2_name];
     if(file1 == NULL || file2 == NULL){
@@ -100,6 +100,7 @@ bool Policy::final_eq(string file1_name, string file2_name){
     assert(!file1_name.empty()&&!file2_name.empty());
     my_file* file1 = this->file_map[file1_name];
     my_file* file2 = this->file_map[file2_name];
+   // cout<<file1_name<<endl<<file2_name<<endl;
     if(file1 == NULL || file2 == NULL){
         cout<<"Error! Uninitialized file in function final_eq!"<<endl;
         assert(0);
@@ -118,7 +119,7 @@ void Policy::reserve_doubt(string file1_name, string file2_name){
 pair<string, string> Policy::get_nxt_pair(){
     string strLine;
     if(getline(file,strLine)){
-        auto semi = strLine.find(";");
+        auto semi = strLine.find(",");
         return make_pair(strLine.substr(0, semi), strLine.substr(semi+1, strLine.size()));
     }else{
         if(!doubt.empty()){

@@ -3,6 +3,12 @@
 
 #include <QMainWindow>
 #include <QEventLoop>
+#include <QStandardItemModel>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QCloseEvent>
+#include "policy.h"
+#include <vector>
 
 namespace Ui {
 class result;
@@ -16,6 +22,7 @@ public:
     explicit result(QWidget *parent = nullptr);
     ~result();
     void exec();
+    Policy* p;
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -23,9 +30,15 @@ protected:
 
 private slots:
     void on_pushButton_clicked();
+    bool save_eq_file();
+
 
 private:
     Ui::result *ui;
+    QStandardItemModel* item_model;
+    vector<string>eq_pair;
+    bool saved;
+
 };
 
 #endif // RESULT_H
