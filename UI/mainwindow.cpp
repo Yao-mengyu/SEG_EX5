@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+#define CODE(STRING)         QString("<pre><code style=\"color: Blue\">").append(STRING.replace("<", "&lt;").replace(">", "&gt;")).append(QString("</code></pre>"))
 MainWindow::MainWindow(QWidget *parent, string eq_file, string dir)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -14,8 +14,11 @@ MainWindow::MainWindow(QWidget *parent, string eq_file, string dir)
     //p = &p_s;
     show_it = true;
    // result rw(nullptr);
+   this->p.w = this;
    this->p.get_nxt_pair();
     update_judge_state();
+    rw.setWindowFlags(rw.windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    rw.setFixedSize(rw.width(), rw.height());
    // result rw_s = result();
     //rw = &rw_s;
    // ui->file1_name->setText("1");
@@ -24,6 +27,16 @@ MainWindow::MainWindow(QWidget *parent, string eq_file, string dir)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+static inline void highlighter(QTextBrowser * text){
+     text->append(QString("<link rel=\"stylesheet\" href=\"./css/default.min.css\">  <!--引入默认代码样式，可换其他的-->"));
+   // text->append(QString("<link rel=&quot;stylesheet&quot; href=&quot;./css/dark.min.css&quot;>     <!--引入代码深色背景-->"));
+    text->append(QString("<script src=\"./js/highlight.min.js\"></script>"));
+     text->append(QString("<script>hljs.initHighlightingOnLoad();hljs.highlightAll();</script>"));
+    // text->insertHtml(QString("<script src=\"./js/highlightjs-line-numbers.min.js\"></script><!--引入添加行号js-->"));
+    
+    //text->append(QString("<style>.hljs-ln-numbers {text-align: center;color: #ccc;border-right: 1px solid #999;vertical-align: top;padding-right: 5px;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}</style>"));
 }
 
 void MainWindow::update_judge_state(){
@@ -58,10 +71,18 @@ void MainWindow::update_judge_state(){
             exit(0);
         }
         QTextStream stream1(file1);
+        //bool file1_not_empty = false;
+        if(!stream1.atEnd()){
+            //file1_not_empty = true; 
+            highlighter(ui->file1_text);
+        }
         while(!stream1.atEnd()){
             QString lineStr = stream1.readLine();
-            ui->file1_text->append(lineStr);
+            ui->file1_text->append(CODE(lineStr));
         }
+       // ui ->file1_text->append(QString("$('pre code').each(function(i, block) {hljs.highlightBlock(block) hljs.lineNumbersBlock(block,{singleLine: true      //开启单行行号显示});}"));
+        //if(file1_not_empty) ui->file1_text->append(QString("</pre>"));
+        //ui ->file1_text->append(QString("<script>hljs.initHighlightingOnLoad(); hljs.initLineNumbersOnLoad(); </script>"));
         file1->close();
         QFile* file2 = new QFile((input_dir + "/" + to_judge.second).c_str());
         if(!file2-> exists() || !file2->open(QIODevice::ReadOnly)){
@@ -69,9 +90,15 @@ void MainWindow::update_judge_state(){
             exit(0);
         }
         QTextStream stream2(file2);
+        if(!stream2.atEnd()){
+            //file1_not_empty = true; 
+            highlighter(ui->file2_text);
+
+        }
         while(!stream2.atEnd()){
             QString lineStr = stream2.readLine();
-            ui->file2_text->append(lineStr);
+            ui->file2_text->append(CODE(lineStr));
+            // cout<<CODE(lineStr.replace("<", "\<")).toStdString()<<endl;
         }
         file2->close();
         //-------退出循环找显示文件--------//

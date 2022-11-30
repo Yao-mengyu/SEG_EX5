@@ -25,30 +25,58 @@ result::~result()
     delete ui;
 }
 
+bool result::save_doubt_file(){
+    vector<string>tmp;
+    while(!p->double_doubt.empty()){
+        auto a = p->double_doubt.front();
+        p->double_doubt.pop();
+        tmp.emplace_back(a.first + "," + a.second);
+    }
+    if(!tmp.empty()){
+    QString path = QString("");
+    path = QFileDialog::getSaveFileName(this,tr("保存存疑文件"),
+                           "./doubt.csv",
+                           tr("csv (*.csv)"));
+    if(path.isEmpty()){
+        return false;
+    }
+    ofstream doubt_stream;
+    doubt_stream.open(path.toStdString(), ios::in|ios::trunc);
+    doubt_stream<<"file1,file2"<<endl;
+    for(const auto &i: tmp){
+        doubt_stream<< i<< endl;
+    }
+    
+    doubt_stream.close();
+    }
+    saved = true;
+    return true;
+}
+
 bool result::save_eq_file(){
     QString path = QString("");
-    path = QFileDialog::getSaveFileName(this,tr("保存文件"),
+    path = QFileDialog::getSaveFileName(this,tr("保存等价文件"),
                            "./equal.csv",
                            tr("csv (*.csv)"));
     if(path.isEmpty()){
         return false;
     }
     ofstream eq_stream;
-    eq_stream.open(path.toStdString(), ios::app);
-    eq_stream<<"file1;file2"<<endl;
+    eq_stream.open(path.toStdString(), ios::in|ios::trunc);
+    eq_stream<<"file1,file2"<<endl;
     for(const auto &i: eq_pair){
         eq_stream<< i<< endl;
     }
     eq_stream.close();
-    saved = true;
-    return true;
+    //saved = true;
+    return save_doubt_file();
 }
 
 void result::on_pushButton_clicked()
 {
     if(!saved){
     QMessageBox::StandardButton ret;
-    ret = QMessageBox::warning(this, "保存", "是否对等价程序对文件进行保存",QMessageBox::Save|QMessageBox::Discard|QMessageBox::Cancel);
+    ret = QMessageBox::warning(this, "保存", "是否对等价程序对文件及存疑无法判断的程序对文件进行保存",QMessageBox::Save|QMessageBox::Discard|QMessageBox::Cancel);
     if(ret == QMessageBox::Save){
         //-----调用保存----//
         if(!save_eq_file()){return;}//未保存

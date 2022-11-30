@@ -11,6 +11,9 @@
 #include<string.h>
 #include <fstream>
 #include <queue>
+#include <QMessageBox>
+#include <QMainWindow>
+
 using namespace std;
 struct my_file{
     //string name;
@@ -24,6 +27,7 @@ class Policy{
         bool judge_in_neq(my_file* file1, my_file* file2);
         queue<pair<string, string>>doubt;
         ifstream file;
+        bool doubt_scope;
 
     public:
         bool need_judge(string file1_name, string file2_name);
@@ -33,6 +37,9 @@ class Policy{
         pair<string, string>get_nxt_pair();//如果返回pair<"", "">则说明没有需要比对的pair了
         Policy(string eq_file);
         string equal_file;
+        QMainWindow* w;
+        queue<pair<string, string>>double_doubt;
+
 };
 
 #endif // POLICY_H

@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setQuitOnLastWindowClosed(true);
     MainWindow w(nullptr, argv[1], argv[2]);
+    w.setWindowFlags(w.windowFlags()& ~Qt::WindowMaximizeButtonHint);
+    w.setFixedSize(w.width(), w.height());
    // cout<<"after close"<<w.show_it<<endl;
     w.show();
     return a.exec();

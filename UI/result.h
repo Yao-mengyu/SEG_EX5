@@ -31,6 +31,7 @@ protected:
 private slots:
     void on_pushButton_clicked();
     bool save_eq_file();
+    bool save_doubt_file();
 
 
 private:

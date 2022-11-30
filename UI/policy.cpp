@@ -7,6 +7,8 @@ Policy::Policy(string eq_file){
    // this ->doubt.clear();
     this ->equal_file = eq_file;
     this ->file.open(equal_file,ios::in);
+    this ->w = NULL;
+    this -> doubt_scope = false;
 }
 
 //-------------------------并查集操作-----------------------------//
@@ -112,7 +114,8 @@ bool Policy::final_eq(string file1_name, string file2_name){
 //对存疑文件对进行留存
 void Policy::reserve_doubt(string file1_name, string file2_name){
     assert(!file1_name.empty()&&!file2_name.empty());
-    this->doubt.push(make_pair(file1_name, file2_name));
+    if(!doubt_scope)this->doubt.push(make_pair(file1_name, file2_name));
+    else{this->double_doubt.push(make_pair(file1_name, file2_name));}
 }
 
 // 获取下一对需要比较的文件名pair
@@ -132,6 +135,10 @@ pair<string, string> Policy::get_nxt_pair(){
             if(doubt.empty()&&!need_judge(to_judge.first, to_judge.second)){
                 return make_pair("", "");
             }else{
+                if(!doubt_scope){
+               // QMessageBox::StandardButton ret;
+                QMessageBox::warning(nullptr, "提示", "以下出现的是曾经存疑过的程序对，请谨慎比对",QMessageBox::Ok);}
+                doubt_scope = true;  
                 return to_judge;
             }
         }
